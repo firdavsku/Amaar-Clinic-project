@@ -1,10 +1,12 @@
 from django.contrib import admin
-from .models import Social, Doctors, Landing, AboutUs, Message, Comments, Departments
+from .models import Social, Doctors, Landing, AboutUs, Message, Comments, Departments,Slug
 
 @admin.register(Social)
 class SocialAdmin(admin.ModelAdmin):  # Renamed the admin class to SocialAdmin
     list_display = ('id', 'name')
     search_fields = ('name',)
+
+admin.site.register(Slug)
 
 @admin.register(Doctors)
 class DoctorsAdmin(admin.ModelAdmin):

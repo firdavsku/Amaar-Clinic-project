@@ -3,8 +3,16 @@ from django.db import models
 # Create your models here.
 class Social(models.Model):
     name=models.CharField(max_length=50)
+    link = models.URLField()
     def __str__(self):
         return self.name
+    
+
+class Slug(models.Model):
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    def __str__(self):
+        return self.title
     
 class Doctors(models.Model):
     image=models.ImageField(upload_to="images")
@@ -34,9 +42,8 @@ class Message(models.Model):
     full_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
     message = models.TextField(null=True, blank=True)
-    # is_comment = models.BooleanField(default=False)
     def __str__(self):
-        return self.text
+        return self.full_name
 
 class Comments(models.Model):
     image = models.ImageField(upload_to='images')
