@@ -114,6 +114,80 @@ USE_I18N = True
 USE_TZ = True
 
 
+JAZZMIN_SETTINGS = {
+    "site_title": "Amaar Clnic",
+    "site_header": "Amaar Clnic",
+    "site_brand": "Amaar Clnic",
+    "site_logo_classes": "img-circle",
+    "welcome_sign": "Welcome to the Amaar Clinic superadmin panel",
+    "copyright": "Acme Amaar Clinic Ltd",
+    "search_model": ["app.Doctors", "app.Departments", "app.Message"],
+    "user_avatar": None,
+    "navbar": "navbar-navy navbar-dark",
+
+    "show_sidebar": True,
+    "hide_apps": [],
+    "hide_models": [],
+    "icons": {
+        "app.Social": "fas fa-share-alt",
+        "app.Slug": "fas fa-link",
+        "app.Doctors": "fas fa-user-md",
+        "app.Landing": "fas fa-globe",
+        "app.AboutUs": "fas fa-info-circle",
+        "app.Message": "fas fa-envelope",
+        "app.Comments": "fas fa-comment-dots",
+        "app.Departments": "fas fa-building",
+    },
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+    "related_modal_active": False,
+    "custom_css": None,
+    "custom_js": None,
+    "use_google_fonts_cdn": True,
+    "show_ui_builder": False,
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "app.Social": "collapsible",
+        "app.Departments": "vertical_tabs"
+    },
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-navy",
+    "accent": "accent-primary",
+    "navbar": "navbar-navy navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": True,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-dark-navy",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "footer": "sidebar-dark-navy",
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+        "language_chooser": True,
+    }
+}
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
