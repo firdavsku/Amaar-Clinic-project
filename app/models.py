@@ -17,8 +17,9 @@ class Slug(models.Model):
     text = models.TextField()
     def __str__(self):
         return self.title
-    verbose_name = "Slug"
-    verbose_name_plural = "Slugs"
+    class Meta:
+        verbose_name = "Slug"
+        verbose_name_plural = "Slugs"
     
 class Doctors(models.Model):
     image=models.ImageField(upload_to="images")
@@ -27,16 +28,18 @@ class Doctors(models.Model):
     social_media=models.ForeignKey(Social, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
-    verbose_name = "Doctor"
-    verbose_name_plural = "Doctors"
+    class Meta:
+        verbose_name = "Doctor"
+        verbose_name_plural = "Doctors"
 
 class Landing(models.Model):
     text = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     def __str__(self):
         return self.text
-    verbose_name = "Landing"
-    verbose_name_plural = "Landings"
+    class Meta:
+        verbose_name = "Landing"
+        verbose_name_plural = "Landings"
 
 class AboutUs(models.Model):
     text = models.CharField(max_length=100)
@@ -46,8 +49,9 @@ class AboutUs(models.Model):
     social_media = models.ForeignKey(Social, on_delete=models.CASCADE)
     def __str__(self):
         return self.text
-    verbose_name = "About us"
-    verbose_name_plural = "About us"
+    class Meta:
+        verbose_name = "About us"
+        verbose_name_plural = "About us"
 
 
 class Message(models.Model):
@@ -56,8 +60,9 @@ class Message(models.Model):
     message = models.TextField(null=True, blank=True)
     def __str__(self):
         return self.full_name
-    verbose_name = "Message"
-    verbose_name_plural = "Messages"
+    class Meta:
+        verbose_name = "Message"
+        verbose_name_plural = "Messages"
 
 class Comments(models.Model):
     image = models.ImageField(upload_to='images')
@@ -65,8 +70,9 @@ class Comments(models.Model):
     message = models.TextField(null=True, blank=True)
     def __str__(self):
         return self.full_name
-    verbose_name = "Comment"
-    verbose_name_plural = "Comments"
+    class Meta:
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
     
     
 
@@ -76,6 +82,7 @@ class Departments(models.Model):
     text = models.TextField(null=True, blank=True)
     def __str__(self):
         return self.name
-    verbose_name = "Department"
-    verbose_name_plural = "Departments"
+    class Meta:
+        verbose_name = "Department"
+        verbose_name_plural = "Departments"
     
