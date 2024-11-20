@@ -4,6 +4,7 @@ from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from .models import Social, Doctors, Landing, AboutUs, Message, Slug, Departments,Comments
+from django.contrib import messages
 
 class IndexView(View):
     def get(self, request):
@@ -59,7 +60,7 @@ def contact_view(request):
             message=message
         )
 
-        # Optionally, send a success message or redirect to a thank you page
-        return HttpResponse('Your message has been sent successfully!')
+        # Add a success message
+        messages.success(request, 'Your message has been sent successfully!')
 
-    return render(request, 'contact.html')  
+    return render(request, 'contact.html')

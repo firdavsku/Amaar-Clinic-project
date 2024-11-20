@@ -354,77 +354,68 @@
 </section>
 <!-- end client section -->
 
+
 <!-- footer section -->
 <footer class="footer_section">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-lg-3 footer_col">
+      <div class="col-md-6 col-lg-4 footer_col">
         <div class="footer_contact">
-          <h4>
-            Reach at..
-          </h4>
+          <h4>Reach at..</h4>
           <div class="contact_link_box">
-            <a href="#">
+            <a href="{{ about_us.location }}">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <span>Location</span>
             </a>
-            <a href="tel:+011234567890">
+            <a href="tel:{{ about_us.phone }}">
               <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>Call +01 1234567890</span>
+              <span>Call {{ about_us.phone }}</span>
             </a>
-            <a href="mailto:demo@gmail.com">
+            <a href="mailto:{{ about_us.social_media.email }}">
               <i class="fa fa-envelope" aria-hidden="true"></i>
-              <span>demo@gmail.com</span>
+              <span>{{ about_us.social_media.email }}</span>
             </a>
           </div>
         </div>
         <div class="footer_social">
-          {% for social in socials %}
-            <a href="{{ social.link }}">
-              <i class="fa fa-{{ social.name | lower }}" aria-hidden="true"></i>
-            </a>
+          {% for social in about_us.social_media.all %}
+          <a href="{{ social.url }}">
+            <i class="fa {{ social.icon_class }}" aria-hidden="true"></i>
+          </a>
           {% endfor %}
         </div>
       </div>
       <div class="col-md-6 col-lg-3 footer_col">
         <div class="footer_detail">
           <h4>About</h4>
-          {% for about_us in about_us_entries %}
-          <p>
-            {{ about_us.text }}
-          </p>
-          {% endfor %}
+          <p>{{ about_us.text }}</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-2 mx-auto footer_col">
         <div class="footer_link_box">
           <h4>Links</h4>
           <div class="footer_links">
-            <a class="active" href="/">Home</a>
-            <a href="about_us/">About</a>
-            <a href="departments/">Departments</a>
-            <a href="doctors/">Doctors</a>
-            <a href="contact/">Contact Us</a>
+            <a href="/">Home</a>
+            <a href="{% url 'about_us' %}">About</a>
+            <a href="{% url 'department' %}">Departments</a>
+            <a href="{% url 'doctors' %}">Doctors</a>
+            <a href="{% url 'contact' %}">Contact Us</a>
           </div>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-3 footer_col">
-        <h4>Newsletter</h4>
-        <form action="#">
-          <input type="email" placeholder="Enter email" />
-          <button type="submit">Subscribe</button>
-        </form>
       </div>
     </div>
     <div class="footer-info">
       <p>
         &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://ats.net/">ATS group<br><br></a>
+        <a href="https://html.design/">Free Html Templates</a>
+        <br><br>&copy; <span id="displayYear"></span> Distributed By
+        <a href="https://themewagon.com/">ThemeWagon</a>
       </p>
     </div>
   </div>
 </footer>
 <!-- footer section -->
+
 
 <style>
   /* Scroll to Top Button */

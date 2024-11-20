@@ -47,6 +47,7 @@ class AboutUs(models.Model):
     name=models.CharField(max_length=50)
     location = models.URLField()
     social_media = models.ForeignKey(Social, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=14)
     def __str__(self):
         return self.text
     class Meta:
