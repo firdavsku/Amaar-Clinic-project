@@ -43,7 +43,7 @@ def about_view(request):
 
 # Doctors View
 def doctors_view(request):
-    doctors = Doctors.objects.select_related('social_media').all()
+    doctors = Doctors.objects.all()  # Removed select_related('social_media')
     return render(request, 'doctors.html', {'doctors': doctors})
 
 # Departments View

@@ -25,9 +25,8 @@ class Doctors(models.Model):
     image=models.ImageField(upload_to="images")
     name=models.CharField(max_length=50)
     position=models.CharField(max_length=50)
-    # social_media=models.ForeignKey(Social, on_delete=models.CASCADE)
     phone = models.CharField(max_length=13)
-    email = models.CharField(max_length=20)
+    email = models.CharField(max_length=200)
     def __str__(self):
         return self.name
     class Meta:
