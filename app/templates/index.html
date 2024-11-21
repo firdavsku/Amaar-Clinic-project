@@ -170,37 +170,37 @@
 <section class="about_section layout_margin-bottom">
   <div class="container">
     <div class="row">
-      {% for about in about_us_entries %}
+      <!-- Since about_us_entries is a single object, no need for a for loop -->
       <div class="col-md-6">
         <div class="img-box">
-          <img src="{{ about.image.url }}" alt="{{ about.name }}">
+          <img src="{{ about_us_entries.image.url }}" alt="{{ about_us_entries.name }}">
         </div>
       </div>
       <div class="col-md-6">
         <div class="detail-box">
           <div class="heading_container">
             <h2>
-              About <span>{{ about.name }}</span>
+              About <span>{{ about_us_entries.name }}</span>
             </h2>
           </div>
           <p>
-            {{ about.text }}
+            {{ about_us_entries.text }}
           </p>
-          <a href="{{ about.location }}" target="_blank">
+          <a href="{{ about_us_entries.location }}" target="_blank">
             Read More
           </a>
           <div class="social-links">
-            <a href="{{ about.social_media.link }}" target="_blank">
-              Follow Us on <b>{{ about.social_media.name }}</b>
+            <a href="{{ about_us_entries.social_media.link }}" target="_blank">
+              Follow Us on <b>{{ about_us_entries.social_media.name }}</b>
             </a>
           </div>
         </div>
       </div>
-      {% endfor %}
     </div>
   </div>
 </section>
 <!-- end about section -->
+
 
 
   <!-- doctor section -->
@@ -211,7 +211,7 @@
         Our Doctors
       </h2>
       <p class="col-md-10 mx-auto px-0">
-        Incilint sapiente illo quo praesentium officiis laudantium nostrum, ad adipisci cupiditate sit, quisquam aliquid. Officiis laudantium fuga ad voluptas aspernatur error fugiat quos facilis saepe quas fugit, beatae id quisquam.
+        Our all of doctors
       </p>
     </div>
     <div class="row">
@@ -222,7 +222,7 @@
             <img src="{{ doctor.image.url }}" alt="{{ doctor.name }}">
           </div>
           <div class="detail-box">
-            <div class="social_box">
+            <!-- <div class="social_box">
               <a href="{{ doctor.social_media.facebook_link }}" target="_blank">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
               </a>
@@ -235,11 +235,13 @@
               <a href="{{ doctor.social_media.linkedin_link }}" target="_blank">
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
               </a>
-            </div>
+            </div> -->
             <h5>
               {{ doctor.name }}
             </h5>
-            <h6 class="">{{ doctor.position }}</h6>
+            <h6 class="">Position: {{ doctor.position }}</h6>
+            <h6 class="">Phone number : {{ doctor.phone }}</h6>
+            <h6 class="">Email: {{ doctor.email }}</h6>
           </div>
         </div>
       </div>
@@ -354,6 +356,19 @@
 </section>
 <!-- end client section -->
 
+<style>
+  /* Ensure the about text doesn't overflow */
+.about-text {
+  word-wrap: break-word; /* Break words if they exceed the container width */
+  overflow-wrap: break-word; /* Same as word-wrap but more standardized */
+  white-space: normal; /* Ensure the text wraps and doesn't stay in one line */
+  text-overflow: ellipsis; /* Adds "..." when the text overflows */
+  display: block; /* Ensures it behaves as a block-level element */
+  max-width: 100%; /* Ensures the text doesn't exceed the container width */
+}
+
+</style>
+
 
 <!-- footer section -->
 <footer class="footer_section">
@@ -363,34 +378,31 @@
         <div class="footer_contact">
           <h4>Reach at..</h4>
           <div class="contact_link_box">
-            <a href="{{ about_us.location }}">
+            <a href="{{ about_us_entries.location }}">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>Location</span>
+              <span>Location {{ about_us_entries.location }}</span>
             </a>
-            <a href="tel:{{ about_us.phone }}">
+            <a href="tel:{{ about_us_entries.phone }}">
               <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>Call {{ about_us.phone }}</span>
-            </a>
-            <a href="mailto:{{ about_us.social_media.email }}">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-              <span>{{ about_us.social_media.email }}</span>
+              <span>Call {{ about_us_entries.phone }}</span>
             </a>
           </div>
         </div>
+
         <div class="footer_social">
-          {% for social in about_us.social_media.all %}
-          <a href="{{ social.url }}">
-            <i class="fa {{ social.icon_class }}" aria-hidden="true"></i>
+          <a href="{{ about_us_entries.social_media.url }}">
+            <i class="fa {{ about_us_entries.social_media.icon_class }}" aria-hidden="true"></i>
           </a>
-          {% endfor %}
         </div>
       </div>
+
       <div class="col-md-6 col-lg-3 footer_col">
         <div class="footer_detail">
           <h4>About</h4>
-          <p>{{ about_us.text }}</p>
+          <p class="about-text">{{ about_us_entries.text }}</p> <!-- Display the About Us text -->
         </div>
       </div>
+
       <div class="col-md-6 col-lg-2 mx-auto footer_col">
         <div class="footer_link_box">
           <h4>Links</h4>
@@ -404,6 +416,7 @@
         </div>
       </div>
     </div>
+
     <div class="footer-info">
       <p>
         &copy; <span id="displayYear"></span> All Rights Reserved By
@@ -415,6 +428,9 @@
   </div>
 </footer>
 <!-- footer section -->
+
+
+
 
 
 <style>

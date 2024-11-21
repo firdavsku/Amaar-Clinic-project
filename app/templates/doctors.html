@@ -87,6 +87,8 @@
     <!-- end header section -->
   </div>
 
+
+  <!-- doctor section -->
   <section class="doctor_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
@@ -94,7 +96,7 @@
           Our Doctors
         </h2>
         <p class="col-md-10 mx-auto px-0">
-          Meet our experienced and dedicated team of doctors.
+          Our all of doctors
         </p>
       </div>
       <div class="row">
@@ -105,137 +107,105 @@
               <img src="{{ doctor.image.url }}" alt="{{ doctor.name }}">
             </div>
             <div class="detail-box">
-              <div class="social_box">
-                {% if doctor.social_media.facebook %}
-                <a href="{{ doctor.social_media.facebook }}" target="_blank">
+              <!-- <div class="social_box">
+                <a href="{{ doctor.social_media.facebook_link }}" target="_blank">
                   <i class="fa fa-facebook" aria-hidden="true"></i>
                 </a>
-                {% endif %}
-                {% if doctor.social_media.twitter %}
-                <a href="{{ doctor.social_media.twitter }}" target="_blank">
+                <a href="{{ doctor.social_media.twitter_link }}" target="_blank">
                   <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
-                {% endif %}
-                {% if doctor.social_media.youtube %}
-                <a href="{{ doctor.social_media.youtube }}" target="_blank">
+                <a href="{{ doctor.social_media.youtube_link }}" target="_blank">
                   <i class="fa fa-youtube" aria-hidden="true"></i>
                 </a>
-                {% endif %}
-                {% if doctor.social_media.linkedin %}
-                <a href="{{ doctor.social_media.linkedin }}" target="_blank">
+                <a href="{{ doctor.social_media.linkedin_link }}" target="_blank">
                   <i class="fa fa-linkedin" aria-hidden="true"></i>
                 </a>
-                {% endif %}
-              </div>
+              </div> -->
               <h5>
                 {{ doctor.name }}
               </h5>
-              <h6 class="">
-                {{ doctor.position }}
-              </h6>
+              <h6 class="">Position: {{ doctor.position }}</h6>
+              <h6 class="">Phone number : {{ doctor.phone }}</h6>
+              <h6 class="">Email: {{ doctor.email }}</h6>
             </div>
           </div>
         </div>
         {% endfor %}
       </div>
-    
+      <div class="btn-box">
+        <a href="">
+          View All
+        </a>
+      </div>
     </div>
   </section>
-  
+  <!-- end doctor section -->
 
 
-  <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-lg-4 footer_col">
-          <div class="footer_contact">
-            <h4>
-              Reach at..
-            </h4>
-            <div class="contact_link_box">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  Location
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  Call +01 1234567890
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  demo@gmail.com
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="footer_social">
-            <a href="">
-              <i class="fa fa-facebook" aria-hidden="true"></i>
+
+<!-- footer section -->
+<footer class="footer_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-4 footer_col">
+        <div class="footer_contact">
+          <h4>Reach at..</h4>
+          <div class="contact_link_box">
+            <a href="{{ about_us_entries.location }}">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>Location {{ about_us_entries.location }}</span>
             </a>
-            <a href="">
-              <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-            <a href="">
-              <i class="fa fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
+            <a href="tel:{{ about_us_entries.phone }}">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>Call {{ about_us_entries.phone }}</span>
             </a>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3 footer_col">
-          <div class="footer_detail">
-            <h4>
-              About
-            </h4>
-            <p>
-              Beatae provident nobis mollitia magnam voluptatum, unde dicta facilis minima veniam corporis laudantium alias tenetur eveniet illum reprehenderit fugit a delectus officiis blanditiis ea.
-            </p>
-          </div>
+
+        <div class="footer_social">
+          <a href="{{ about_us_entries.social_media.url }}">
+            <i class="fa {{ about_us_entries.social_media.icon_class }}" aria-hidden="true"></i>
+          </a>
         </div>
-        <div class="col-md-6 col-lg-2 mx-auto footer_col">
-          <div class="footer_link_box">
-            <h4>
-              Links
-            </h4>
-            <div class="footer_links">
-              <a class="" href="/">
-                Home
-              </a>
-              <a class="active" href="{% url 'about_us' %}/">
-                About
-              </a>
-              <a class="" href="{% url 'department' %}">
-                Departments
-              </a>
-              <a class="" href="{% url 'doctors' %}">
-                Doctors
-              </a>
-              <a class="" href="{% url 'contact' %}">
-                Contact Us
-              </a>
-            </div>
-          </div>
-        </div>
-        
       </div>
-      <div class="footer-info">
-        <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="https://html.design/">Free Html Templates<br><br></a>
-            &copy; <span id="displayYear"></span> Distributed By
-            <a href="https://themewagon.com/">ThemeWagon</a>
-        </p>
+
+      <div class="col-md-6 col-lg-3 footer_col">
+        <div class="footer_detail">
+          <h4>About</h4>
+          <p class="about-text">{{ about_us_entries.text }}</p> <!-- Display the About Us text -->
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-2 mx-auto footer_col">
+        <div class="footer_link_box">
+          <h4>Links</h4>
+          <div class="footer_links">
+            <a href="/">Home</a>
+            <a href="{% url 'about_us' %}">About</a>
+            <a href="{% url 'department' %}">Departments</a>
+            <a href="{% url 'doctors' %}">Doctors</a>
+            <a href="{% url 'contact' %}">Contact Us</a>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
-  <!-- footer section -->
+
+    <div class="footer-info">
+      <p>
+        &copy; <span id="displayYear"></span> All Rights Reserved By
+        <a href="https://html.design/">Free Html Templates</a>
+        <br><br>&copy; <span id="displayYear"></span> Distributed By
+        <a href="https://themewagon.com/">ThemeWagon</a>
+      </p>
+    </div>
+  </div>
+</footer>
+<!-- footer section -->
+
+
+
+
+
   <!-- jQery -->
   <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <!-- popper js -->

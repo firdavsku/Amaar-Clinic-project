@@ -10,10 +10,8 @@ admin.site.register(Slug)
 
 @admin.register(Doctors)
 class DoctorsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'position', 'social_media')
-    list_filter = ('social_media',)
+    list_display = ('id', 'name', 'position')
     search_fields = ('name', 'position')
-    autocomplete_fields = ('social_media',)
 
 @admin.register(Landing)
 class LandingAdmin(admin.ModelAdmin):

@@ -6,29 +6,35 @@ from django.urls import reverse
 from .models import Social, Doctors, Landing, AboutUs, Message, Slug, Departments,Comments
 from django.contrib import messages
 
+
+
+
+from .models import AboutUs, Social, Doctors, Landing, Departments, Slug, Comments
+
 class IndexView(View):
     def get(self, request):
         # Fetch data from all relevant models
-        socials = Social.objects.all()
-        doctors = Doctors.objects.all()
-        landings = Landing.objects.all()
-        about_us_entries = AboutUs.objects.all()
-        departments = Departments.objects.all()
+        socials = Social.objects.all()  # Fetch all social media links
+        doctors = Doctors.objects.all()  # Fetch all doctors
+        landings = Landing.objects.all()  # Fetch all landing page data
+        about_us_entries = AboutUs.objects.first()  # Fetch a single AboutUs entry (assuming it's just one)
+        departments = Departments.objects.all()  # Fetch all departments
         slides = Slug.objects.all()  # Fetch Slug data for the carousel
-        comments = Comments.objects.all()  # Fetch Comments data
+        comments = Comments.objects.all()  # Fetch all comments
 
-        # Pass all data to the template
+        # Prepare context dictionary to pass data to the template
         context = {
             'socials': socials,
             'doctors': doctors,
             'landings': landings,
-            'about_us_entries': about_us_entries,
+            'about_us_entries': about_us_entries,  # Single AboutUs entry
             'departments': departments,
             'slides': slides,
-            'comments': comments,  # Add Comments data to the context
+            'comments': comments,
         }
-        return render(request, 'index.html', context)
 
+        # Render the index template with the provided context data
+        return render(request, 'index.html', context)
 
 # About Us View
 def about_view(request):
