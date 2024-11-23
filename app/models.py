@@ -47,7 +47,7 @@ class AboutUs(models.Model):
     image=models.ImageField(upload_to="images")
     name=models.CharField(max_length=50)
     location = models.CharField(max_length=200)
-    social_media = models.ForeignKey(Social, on_delete=models.CASCADE)
+    social_media = models.ForeignKey(Social, on_delete=models.CASCADE, null=True, blank=True)
     phone = models.CharField(max_length=14)
     def __str__(self):
         return self.text
