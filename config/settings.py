@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-@zu-_22d&0^d)0c82!5!sy!#w9a0chlg8)ai@u%)k)tx3x7xya
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://alamis.kz", "https://amaarclinic.pythonanywhere.com"]
-
+ALLOWED_HOSTS = [
+    "alamis.kz",
+    "amaarclinic.pythonanywhere.com",
+]
 CSRF_TRUSTED_ORIGINS = [
     'https://alamis.kz',
 ]
-CSRF_COOKIE_SECURE = True
 
 
 
