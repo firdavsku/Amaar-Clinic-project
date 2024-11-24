@@ -122,12 +122,12 @@ USE_TZ = True
 
 
 JAZZMIN_SETTINGS = {
-    "site_title": "Amaar Clnic",
-    "site_header": "Amaar Clnic",
-    "site_brand": "Amaar Clnic",
+    "site_title": "Alamis",
+    "site_header": "Alamis",
+    "site_brand": "Alamis",
     "site_logo_classes": "img-circle",
-    "welcome_sign": "Welcome to the Amaar Clinic superadmin panel",
-    "copyright": "Acme Amaar Clinic Ltd",
+    "welcome_sign": "Welcome to the Alamis Clinic superadmin panel",
+    "copyright": "Acme Alamis Ltd",
     "search_model": ["app.Doctors", "app.Departments", "app.Message"],
     "user_avatar": None,
     "navbar": "navbar-navy navbar-dark",
