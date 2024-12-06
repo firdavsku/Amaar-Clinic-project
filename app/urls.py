@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
- 
+# url
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('contact/', views.contact_view, name='contact'),
