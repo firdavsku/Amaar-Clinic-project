@@ -3,38 +3,48 @@ from django.shortcuts import render
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from .models import Social, Doctors, Landing, AboutUs, Message, Slug, Departments,Comments
+from .models import Social, Doctor, Landing, AboutUs, Message, Slug, Department,Comment,Service,Gallery
 from django.contrib import messages
+from config import settings
+from django.utils.translation import activate
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+import django
+from django.utils import translation
 
 
-
-
-from .models import AboutUs, Social, Doctors, Landing, Departments, Slug, Comments
 
 class IndexView(View):
     def get(self, request):
-        # Fetch data from all relevant models
-        socials = Social.objects.all()  # Fetch all social media links
-        doctors = Doctors.objects.all()  # Fetch all doctors
-        landings = Landing.objects.all()  # Fetch all landing page data
-        about_us_entries = AboutUs.objects.first()  # Fetch a single AboutUs entry (assuming it's just one)
-        departments = Departments.objects.all()  # Fetch all departments
-        slides = Slug.objects.all()  # Fetch Slug data for the carousel
-        comments = Comments.objects.all()  # Fetch all comments
-
-        # Prepare context dictionary to pass data to the template
+        socials = Social.objects.all() 
+        doctors = Doctor.objects.all()  
+        landings = Landing.objects.all()  
+        about_us_entries = AboutUs.objects.first()
+        departments = Department.objects.all()
+        slides = Slug.objects.all()  
+        comments = Comment.objects.all()  
+        services = Service.objects.all()
+        gallery = Gallery.objects.all()
         context = {
             'socials': socials,
             'doctors': doctors,
             'landings': landings,
-            'about_us_entries': about_us_entries,  # Single AboutUs entry
+            'about_us': about_us_entries,  
             'departments': departments,
             'slides': slides,
             'comments': comments,
+            'services':services,
+            'gallery':gallery,
         }
-
-        # Render the index template with the provided context data
         return render(request, 'index.html', context)
+
+
+class ServicesListView(View):
+    def get(self, request):
+        services = Service.objects.all()
+        return render(request, 'services.html', {'services': services})
+    
 
 # About Us View
 def about_view(request):
@@ -43,12 +53,12 @@ def about_view(request):
 
 # Doctors View
 def doctors_view(request):
-    doctors = Doctors.objects.all()  # Removed select_related('social_media')
+    doctors = Doctor.objects.all()  # Removed select_related('social_media')
     return render(request, 'doctors.html', {'doctors': doctors})
 
 # Departments View
 def departments_view(request):
-    departments = Departments.objects.all()
+    departments = Department.objects.all()
     return render(request, 'departments.html', {'departments': departments})
 
 def contact_view(request):
@@ -70,3 +80,12 @@ def contact_view(request):
         messages.success(request, 'Your message has been sent successfully!')
 
     return render(request, 'contact.html')
+
+def switch_language(request):
+    language = request.GET.get('language', 'en')
+    next_url = request.GET.get('next', '/')
+    activate(language)
+    response = redirect(next_url)
+    response.set_cookie('django_language', language)
+    return response
+

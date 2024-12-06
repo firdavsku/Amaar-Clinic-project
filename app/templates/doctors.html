@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html>
 
@@ -251,150 +253,291 @@
 <body class="sub_page">
 
   <div class="hero_area">
-
     <div class="hero_bg_box">
-      <img src="images/hero-bg.png" alt="">
+      <img src="{% static 'images/hero-bg.png' %}" alt="">
     </div>
-
-    <!-- header section strats -->
+  
+    <!-- Header Section -->
     <header class="header_section">
       <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="/">
-            <span>
-              Alamis
-            </span>
+        
+
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="{% url 'index' %}">
+              <span>{% trans "Alamis" %}</span>
           </a>
-
+        
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class=""> </span>
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+              <span class="navbar-toggler-icon"></span>
           </button>
-
+        
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="/">Home </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'about_us' %}"> About</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'department' %}">Departments <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'doctors' %}">Doctors</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-              </li>
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </form>
-            </ul>
+              <!-- Navigation Menu -->
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'index' %}">
+                          {% trans "Home" %}
+                          <span class="sr-only">({% trans "current" %})</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'about_us' %}">{% trans "About" %}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'department' %}">{% trans "Departments" %}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'doctors' %}">{% trans "Doctors" %}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'contact' %}">{% trans "Contact Us" %}</a>
+                  </li>
+              </ul>
+        
+              <!-- Language Dropdown -->
+              <ul class="navbar-nav">
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown"
+                         aria-haspopup="true" aria-expanded="false">
+                          {% trans "Language" %}
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="languageDropdown">
+                          <a class="dropdown-item" href="{% url 'switch_language' %}?language=en">
+                              <span class="flag-icon flag-icon-gb"></span> {% trans "English" %}
+                          </a>
+                          <a class="dropdown-item" href="{% url 'switch_language' %}?language=ru">
+                              <span class="flag-icon flag-icon-ru"></span> {% trans "Русский" %}
+                          </a>
+                          <a class="dropdown-item" href="{% url 'switch_language' %}?language=kk">
+                              <span class="flag-icon flag-icon-kz"></span> {% trans "Қазақша" %}
+                          </a>
+                      </div>
+                  </li>
+              </ul>
           </div>
         </nav>
+        
+        
+      
+      
       </div>
     </header>
-    <!-- end header section -->
+  
+    <!-- Slider Section -->
+    <section class="slider_section">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          {% for slide in slides %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="detail-box">
+                    <h1>
+                      {% if request.LANGUAGE_CODE == 'en' %}
+                        {{ slide.title_en }}
+                      {% elif request.LANGUAGE_CODE == 'ru' %}
+                        {{ slide.title_ru }}
+                      {% elif request.LANGUAGE_CODE == 'kk' %}
+                        {{ slide.title_kk }}
+                      {% endif %}
+                    </h1>
+                    <p>
+                      {% if request.LANGUAGE_CODE == 'en' %}
+                        {{ slide.content_en }}
+                      {% elif request.LANGUAGE_CODE == 'ru' %}
+                        {{ slide.content_ru }}
+                      {% elif request.LANGUAGE_CODE == 'kk' %}
+                        {{ slide.content_kk }}
+                      {% endif %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <ol class="carousel-indicators">
+          {% for slide in slides %}
+          <li data-target="#customCarousel1" data-slide-to="{{ forloop.counter0 }}"
+            class="{% if forloop.first %}active{% endif %}"></li>
+          {% endfor %}
+        </ol>
+      </div>
+    </section>
   </div>
 
 
 
-  <!-- Doctor Section -->
-  <section class="doctor_section">
-    <div class="container">
-      <div style="text-align: center;">
-        <h2>Our Doctors</h2>
-        <p>Meet our team of skilled professionals</p>
-      </div>
-      
-      <div class="row">
-        {% for doctor in doctors %}
-        <div class="col-sm-6 col-lg-4">
-          <div class="box">
-            <div class="img-box">
-              <img src="{{ doctor.image.url }}" alt="{{ doctor.name }}">
-            </div>
-            <div class="detail-box">
-              <h5>{{ doctor.name }}</h5>
-              <h6>Position: {{ doctor.position }}</h6>
-              <h6>Phone: {{ doctor.phone }}</h6>
-              <h6>Email: {{ doctor.email }}</h6>
-            </div>
+
+
+
+<!-- Doctor Section -->
+<section class="doctor_section layout_padding">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>
+        {% trans "Our Doctors" %}
+      </h2>
+      <p class="col-md-10 mx-auto px-0">
+        {% trans "Meet our team of experienced and skilled doctors, dedicated to providing the best healthcare services." %}
+      </p>
+    </div>
+    <div class="row">
+      {% for doctor in doctors %}
+      <div class="col-sm-6 col-lg-4 mx-auto">
+        <div class="box">
+          <div class="img-box">
+            <img src="{{ doctor.profile_image.url }}" alt="{{ doctor.name }}">
+          </div>
+          <div class="detail-box">
+            <h5>
+              {% if request.LANGUAGE_CODE == 'en' %}
+                {{ doctor.full_name_en }}
+              {% elif request.LANGUAGE_CODE == 'ru' %}
+                {{ doctor.full_name_ru }}
+              {% elif request.LANGUAGE_CODE == 'kk' %}
+                {{ doctor.full_name_kk }}
+              {% else %}
+                {{ doctor.full_name_en }}
+              {% endif %}
+            </h5>
+            <h6 class="">
+              {% trans "Position" %}: 
+              {% if request.LANGUAGE_CODE == 'en' %}
+                {{ doctor.job_title_en }}
+              {% elif request.LANGUAGE_CODE == 'ru' %}
+                {{ doctor.job_title_ru }}
+              {% elif request.LANGUAGE_CODE == 'kk' %}
+                {{ doctor.job_title_kk }}
+              {% else %}
+                {{ doctor.job_title_en }}
+              {% endif %}
+            </h6>
+            <h6 class="">
+              {% trans "Phone Number" %}: {{ doctor.contact_number }}
+            </h6>
+            <h6 class="">
+              {% trans "Email" %}: {{ doctor.email_address }}
+            </h6>
           </div>
         </div>
-        {% empty %}
-        <div class="col-12">
-          <p class="text-center">No doctors available at the moment. Please check back later.</p>
-        </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
-  </section>
-  <!-- End Doctor Section -->
+    <div class="btn-box">
+      <a href="">
+        {% trans "View All" %}
+      </a>
+    </div>
+  </div>
+</section>
+<!-- End Doctor Section -->
 
 
-  <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-lg-4 footer_col">
-          <div class="footer_contact">
-            <h4>Reach at..</h4>
-            <div class="contact_link_box">
-              <a href="{{ about_us_entries.location }}">
+
+
+<!-- footer section -->
+<footer class="footer_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-4 footer_col">
+        <div class="footer_contact">
+          <h4>{% trans "Reach at.." %}</h4>
+          <div class="contact_link_box">
+            <!-- Location Link -->
+            {% if about_us %}
+              <a href="{{ about_us.location }}">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>Location {{ about_us_entries.location }}</span>
+                <span>{% trans "Location" %}: 
+                  {% if request.LANGUAGE_CODE == 'en' %}
+                    {{ about_us.address_en }}
+                  {% elif request.LANGUAGE_CODE == 'ru' %}
+                    {{ about_us.address_ru }}
+                  {% elif request.LANGUAGE_CODE == 'kk' %}
+                    {{ about_us.address_kk }}
+                  {% else %}
+                    {{ about_us.address_en }}
+                  {% endif %}
+                </span>
               </a>
-              <a href="tel:{{ about_us_entries.phone }}">
+            {% else %}
+              <span>{% trans "Location information not available" %}</span>
+            {% endif %}
+
+            <!-- Phone Link -->
+            {% if about_us %}
+              <a href="tel:{{ about_us.contact_number }}">
                 <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>Call {{ about_us_entries.phone }}</span>
+                <span>{% trans "Call" %}: {{ about_us.contact_number }}</span>
               </a>
-            </div>
+            {% else %}
+              <span>{% trans "Phone number not available" %}</span>
+            {% endif %}
           </div>
+        </div>
 
-          <div class="footer_social">
-            <a href="{{ about_us_entries.social_media.url }}">
-              <i class="fa {{ about_us_entries.social_media.icon_class }}" aria-hidden="true"></i>
+        <div class="footer_social">
+          {% if about_us and about_us.social_media %}
+            <a href="{{ about_us.social_media.url }}">
+              <i class="fa {{ about_us.social_media.icon_class }}" aria-hidden="true"></i>
             </a>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3 footer_col">
-          <div class="footer_detail">
-            <h4>About</h4>
-            <p class="about-text">{{ about_us_entries.text }}</p> <!-- Display the About Us text -->
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-2 mx-auto footer_col">
-          <div class="footer_link_box">
-            <h4>Links</h4>
-            <div class="footer_links">
-              <a href="/">Home</a>
-              <a href="{% url 'about_us' %}">About</a>
-              <a href="{% url 'department' %}">Departments</a>
-              <a href="{% url 'doctors' %}">Doctors</a>
-              <a href="{% url 'contact' %}">Contact Us</a>
-            </div>
-          </div>
+          {% else %}
+            <span>{% trans "Social media link not available" %}</span>
+          {% endif %}
         </div>
       </div>
 
-      <div class="footer-info">
-        <p>
+      <div class="col-md-6 col-lg-3 footer_col">
+        <div class="footer_detail">
+          <h4>{% trans "About" %}</h4>
+          <p class="about-text">
+            {% if about_us %}
+              {% if request.LANGUAGE_CODE == 'en' %}
+                {{ about_us.headline_en }}
+              {% elif request.LANGUAGE_CODE == 'ru' %}
+                {{ about_us.headline_ru }}
+              {% elif request.LANGUAGE_CODE == 'kk' %}
+                {{ about_us.headline_kk }}
+              {% else %}
+                {{ about_us.headline_en }}
+              {% endif %}
+            {% else %}
+              {% trans "No about us information available" %}
+            {% endif %}
+          </p>
+        </div>
+      </div>
 
-          <br><br>&copy; <span id="displayYear"></span> Distributed By
-          <a href="https://ats-systems.net/">ATS group</a>
-        </p>
+      <div class="col-md-6 col-lg-2 mx-auto footer_col">
+        <div class="footer_link_box">
+          <h4>{% trans "Links" %}</h4>
+          <div class="footer_links">
+            <a href="/">{% trans "Home" %}</a>
+            <a href="{% url 'about_us' %}">{% trans "About" %}</a>
+            <a href="{% url 'department' %}">{% trans "Departments" %}</a>
+            <a href="{% url 'doctors' %}">{% trans "Doctors" %}</a>
+            <a href="{% url 'contact' %}">{% trans "Contact Us" %}</a>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
-  <!-- footer section -->
+
+    <!-- Footer Info -->
+    <div class="footer-info">
+      <p>
+        <br><br>&copy; <span id="displayYear"></span> 
+        {% trans "Distributed By" %} 
+        <a href="https://ats-systems.net/">{% trans "ATS group" %}</a>
+      </p>
+    </div>
+  </div>
+</footer>
+<!-- footer section -->
+
+
 
 
 

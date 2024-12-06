@@ -1,5 +1,5 @@
 {% load static %}
-<!DOCTYPE html>
+{% load i18n %}
 <html>
 
 <head>
@@ -15,15 +15,18 @@
   <link rel="shortcut icon" href="images/favicon.png" type="">
 
   <title> Alamis </title>
-
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
 
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet">
+
 
   <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
   <!-- font awesome style -->
   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
@@ -34,184 +37,354 @@
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 
 </head>
+<style>
+  .square-img {
+    width: 100%;
+    /* Ensure the image takes the full width of the container */
+    height: auto;
+    /* Maintain aspect ratio */
+    aspect-ratio: 4 / 3;
+    /* Adjust to make the image rectangular, e.g., 4:3 */
+    object-fit: cover;
+    /* Ensure the image covers the space evenly */
+    border-radius: 8px;
+    /* Optional: Add rounded corners */
+  }
+</style>
 
 <body>
-  <div class="hero_area">
 
+  <div class="hero_area">
     <div class="hero_bg_box">
       <img src="{% static 'images/hero-bg.png' %}" alt="">
     </div>
-
-    <!-- header section strats -->
+  
+    <!-- Header Section -->
     <header class="header_section">
       <div class="container">
-          <nav class="navbar navbar-expand-lg custom_nav-container ">
-              <a class="navbar-brand" href="/">
-                  <span>
-                      Alamis
-                  </span>
-              </a>
-  
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class=""> </span>
-              </button>
-  
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav">
-                      <li class="nav-item active">
-                          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="about_us/"> About</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="departments/">Departments</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="doctors/">Doctors</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="contact/">Contact Us</a>
-                      </li>
-                      {% comment %} <form class="form-inline">
-                          <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                              <i class="fa fa-search" aria-hidden="true"></i>
-                          </button>
-                      </form> {% endcomment %}
-                  </ul>
-              </div>
-          </nav>
+        
+
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="{% url 'index' %}">
+              <span>{% trans "Alamis" %}</span>
+          </a>
+        
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <!-- Navigation Menu -->
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'index' %}">
+                          {% trans "Home" %}
+                          <span class="sr-only">({% trans "current" %})</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'about_us' %}">{% trans "About" %}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'department' %}">{% trans "Departments" %}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'doctors' %}">{% trans "Doctors" %}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'contact' %}">{% trans "Contact Us" %}</a>
+                  </li>
+              </ul>
+        
+              <!-- Language Dropdown -->
+              <ul class="navbar-nav">
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown"
+                         aria-haspopup="true" aria-expanded="false">
+                          {% trans "Language" %}
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="languageDropdown">
+                          <a class="dropdown-item" href="{% url 'switch_language' %}?language=en">
+                              <span class="flag-icon flag-icon-gb"></span> {% trans "English" %}
+                          </a>
+                          <a class="dropdown-item" href="{% url 'switch_language' %}?language=ru">
+                              <span class="flag-icon flag-icon-ru"></span> {% trans "Русский" %}
+                          </a>
+                          <a class="dropdown-item" href="{% url 'switch_language' %}?language=kk">
+                              <span class="flag-icon flag-icon-kz"></span> {% trans "Қазақша" %}
+                          </a>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+        </nav>
+        
+        
+      
+      
       </div>
-  </header>
+    </header>
   
-
-
-
-    <!-- end header section -->
-    <!-- slider section -->
+    <!-- Slider Section -->
     <section class="slider_section">
       <div id="customCarousel1" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           {% for slide in slides %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-7">
-                    <div class="detail-box">
-                      <h1>
-                        {{ slide.title }}
-                      </h1>
-                      <p>
-                        {{ slide.text }}
-                      </p>
-                     
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="detail-box">
+                    <h1>
+                      {% if request.LANGUAGE_CODE == 'en' %}
+                        {{ slide.title_en }}
+                      {% elif request.LANGUAGE_CODE == 'ru' %}
+                        {{ slide.title_ru }}
+                      {% elif request.LANGUAGE_CODE == 'kk' %}
+                        {{ slide.title_kk }}
+                      {% endif %}
+                    </h1>
+                    <p>
+                      {% if request.LANGUAGE_CODE == 'en' %}
+                        {{ slide.content_en }}
+                      {% elif request.LANGUAGE_CODE == 'ru' %}
+                        {{ slide.content_ru }}
+                      {% elif request.LANGUAGE_CODE == 'kk' %}
+                        {{ slide.content_kk }}
+                      {% endif %}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           {% endfor %}
         </div>
         <ol class="carousel-indicators">
           {% for slide in slides %}
-            <li data-target="#customCarousel1" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+          <li data-target="#customCarousel1" data-slide-to="{{ forloop.counter0 }}"
+            class="{% if forloop.first %}active{% endif %}"></li>
           {% endfor %}
         </ol>
       </div>
     </section>
-    
-    <!-- end slider section -->
   </div>
-
-
-
-  <!-- department section -->
+  
+<!-- Department Section -->
 <section class="department_section layout_padding">
   <div class="department_container">
-    <div class="container ">
+    <div class="container">
+      <!-- Heading -->
       <div class="heading_container heading_center">
         <h2>
-          Our Departments
+          {% trans "Our Departments" %}
         </h2>
         <p>
-          Asperiores sunt consectetur impedit nulla molestiae delectus repellat laborum dolores doloremque accusantium
+          {% trans "Our departments provide top-notch services in various fields to meet all your healthcare needs." %}
         </p>
       </div>
+
+      <!-- Department Rows -->
       <div class="row">
         {% for department in departments %}
-        <div class="col-md-3">
-          <div class="box ">
+        <div class="col-sm-6 col-lg-3 mx-auto">
+          <div class="box">
+            <!-- Department Image -->
             <div class="img-box">
-              <img src="{{ department.image.url }}" alt="{{ department.name }}">
+              <img src="{{ department.banner_image.url }}" alt="{{ department.department_name_en }}">
             </div>
+
+            <!-- Department Details -->
             <div class="detail-box">
               <h5>
-                {{ department.name }}
+                {% if request.LANGUAGE_CODE == 'en' %}
+                  {{ department.department_name_en }}
+                {% elif request.LANGUAGE_CODE == 'ru' %}
+                  {{ department.department_name_ru }}
+                {% elif request.LANGUAGE_CODE == 'kk' %}
+                  {{ department.department_name_kk }}
+                {% endif %}
               </h5>
               <p>
-                {{ department.text|default:"No description available." }}
+                {% if request.LANGUAGE_CODE == 'en' %}
+                  {{ department.description_en|default:_("No description available.") }}
+                {% elif request.LANGUAGE_CODE == 'ru' %}
+                  {{ department.description_ru|default:_("No description available.") }}
+                {% elif request.LANGUAGE_CODE == 'kk' %}
+                  {{ department.description_kk|default:_("No description available.") }}
+                {% endif %}
               </p>
             </div>
           </div>
         </div>
         {% endfor %}
       </div>
+
+      <!-- View All Button -->
       <div class="btn-box">
-        <a href="">
-          View All
+        <a href="{% url 'department' %}">
+          {% trans "View All" %}
         </a>
       </div>
     </div>
   </div>
 </section>
-<!-- end department section -->
 
 
-<!-- about section -->
+
+
+<!-- Services Section -->
+<section class="department_section layout_padding">
+  <div class="department_container">
+    <div class="container">
+      <!-- Heading -->
+      <div class="heading_container heading_center">
+        <h2>
+          {% trans "Our Services" %}
+        </h2>
+        <p>
+          {% trans "Our services are designed to meet your needs with the highest level of quality and care, tailored for every customer." %}
+        </p>
+      </div>
+
+      <!-- Service Items -->
+      <div class="row">
+        {% for service in services %}
+        <div class="col-md-3">
+          <div class="box">
+            <!-- Service Image -->
+            {% if service.service_image %}
+            <div class="img-box">
+              <img src="{{ service.service_image.url }}" alt="{% trans 'Service Image' %}" class="rect-img">
+            </div>
+            {% endif %}
+
+            <!-- Service Details -->
+            <div class="detail-box">
+              <h5>
+                {% if LANGUAGE_CODE == 'en' %}
+                  {{ service.service_name_en }}
+                {% elif LANGUAGE_CODE == 'ru' %}
+                  {{ service.service_name_ru }}
+                {% elif LANGUAGE_CODE == 'kk' %}
+                  {{ service.service_name_kk }}
+                {% else %}
+                  {{ service.service_name_en }}
+                {% endif %}
+              </h5>
+              <p>
+                {% if LANGUAGE_CODE == 'en' %}
+                  {{ service.service_description_en|default:_("No description available.") }}
+                {% elif LANGUAGE_CODE == 'ru' %}
+                  {{ service.service_description_ru|default:_("No description available.") }}
+                {% elif LANGUAGE_CODE == 'kk' %}
+                  {{ service.service_description_kk|default:_("No description available.") }}
+                {% else %}
+                  {% trans "No description available." %}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p>{% trans "No services available." %}</p>
+        {% endfor %}
+      </div>
+
+      <!-- View All Button -->
+      <div class="btn-box">
+        <a href="{% url 'services_list' %}">
+          {% trans "View All" %}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Services Section -->
+
+
+
+<!-- About Section -->
 <section class="about_section layout_margin-bottom">
   <div class="container">
     <div class="row">
-      <!-- Since about_us_entries is a single object, no need for a for loop -->
+      <!-- Image Section -->
       <div class="col-md-6">
         <div class="img-box">
-          <img src="{{ about_us_entries.image.url }}" alt="{{ about_us_entries.name }}">
+          <img src="{{ about_us.image.url }}" alt="{{ about_us.name }}">
         </div>
       </div>
+      <!-- Text Section -->
       <div class="col-md-6">
         <div class="detail-box">
           <div class="heading_container">
             <h2>
-              About <span>{{ about_us_entries.name }}</span>
+              {% trans "About" %}
             </h2>
           </div>
           <p>
-            {{ about_us_entries.text }}
+            {% if request.LANGUAGE_CODE == 'en' %}
+              {{ about_us.headline_en }}
+            {% elif request.LANGUAGE_CODE == 'ru' %}
+              {{ about_us.headline_ru }}
+            {% elif request.LANGUAGE_CODE == 'kk' %}
+              {{ about_us.headline_kk }}
+            {% else %}
+              {{ about_us.headline_en }}
+            {% endif %}
           </p>
-          <a href="{{ about_us_entries.location }}" target="_blank">
-            Read More
+          <p>
+            <i class="fa fa-map-marker-alt" aria-hidden="true"></i> 
+            {% if request.LANGUAGE_CODE == 'en' %}
+              <strong>{{ about_us.name_en }}</strong><br>
+              {{ about_us.address_en }}
+            {% elif request.LANGUAGE_CODE == 'ru' %}
+              <strong>{{ about_us.name_ru }}</strong><br>
+              {{ about_us.address_ru }}
+            {% elif request.LANGUAGE_CODE == 'kk' %}
+              <strong>{{ about_us.name_kk }}</strong><br>
+              {{ about_us.address_kk }}
+            {% else %}
+              <strong>{{ about_us.name_en }}</strong><br>
+              {{ about_us.address_en }}
+            {% endif %}
+          </p>
+          
+          
+          <a href="#location">
+            {% trans "Read More" %}
           </a>
           <div class="social-links">
-            <a href="{{ about_us_entries.social_media.link }}" target="_blank">
-              Follow Us on <b>{{ about_us_entries.social_media.name }}</b>
-            </a>
+            {% if about_us.social_media %}
+              <a href="{{ about_us.social_media.link }}" target="_blank">
+                {% blocktrans with social_name=about_us.social_media.name %}
+                  Follow Us on <b>{{ social_name }}</b>
+                {% endblocktrans %}
+              </a>
+            {% endif %}
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- end about section -->
+<!-- End About Section -->
 
 
 
-  <!-- doctor section -->
+
+
+
+<!-- Doctor Section -->
 <section class="doctor_section layout_padding">
   <div class="container">
     <div class="heading_container heading_center">
       <h2>
-        Our Doctors
+        {% trans "Our Doctors" %}
       </h2>
       <p class="col-md-10 mx-auto px-0">
-        Our all of doctors
+        {% trans "Meet our team of experienced and skilled doctors, dedicated to providing the best healthcare services." %}
       </p>
     </div>
     <div class="row">
@@ -219,29 +392,38 @@
       <div class="col-sm-6 col-lg-4 mx-auto">
         <div class="box">
           <div class="img-box">
-            <img src="{{ doctor.image.url }}" alt="{{ doctor.name }}">
+            <img src="{{ doctor.profile_image.url }}" alt="{{ doctor.name }}">
           </div>
           <div class="detail-box">
-            <!-- <div class="social_box">
-              <a href="{{ doctor.social_media.facebook_link }}" target="_blank">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="{{ doctor.social_media.twitter_link }}" target="_blank">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="{{ doctor.social_media.youtube_link }}" target="_blank">
-                <i class="fa fa-youtube" aria-hidden="true"></i>
-              </a>
-              <a href="{{ doctor.social_media.linkedin_link }}" target="_blank">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-            </div> -->
             <h5>
-              {{ doctor.name }}
+              {% if request.LANGUAGE_CODE == 'en' %}
+                {{ doctor.full_name_en }}
+              {% elif request.LANGUAGE_CODE == 'ru' %}
+                {{ doctor.full_name_ru }}
+              {% elif request.LANGUAGE_CODE == 'kk' %}
+                {{ doctor.full_name_kk }}
+              {% else %}
+                {{ doctor.full_name_en }}
+              {% endif %}
             </h5>
-            <h6 class="">Position: {{ doctor.position }}</h6>
-            <h6 class="">Phone number : {{ doctor.phone }}</h6>
-            <h6 class="">Email: {{ doctor.email }}</h6>
+            <h6 class="">
+              {% trans "Position" %}: 
+              {% if request.LANGUAGE_CODE == 'en' %}
+                {{ doctor.job_title_en }}
+              {% elif request.LANGUAGE_CODE == 'ru' %}
+                {{ doctor.job_title_ru }}
+              {% elif request.LANGUAGE_CODE == 'kk' %}
+                {{ doctor.job_title_kk }}
+              {% else %}
+                {{ doctor.job_title_en }}
+              {% endif %}
+            </h6>
+            <h6 class="">
+              {% trans "Phone Number" %}: {{ doctor.contact_number }}
+            </h6>
+            <h6 class="">
+              {% trans "Email" %}: {{ doctor.email_address }}
+            </h6>
           </div>
         </div>
       </div>
@@ -249,21 +431,25 @@
     </div>
     <div class="btn-box">
       <a href="">
-        View All
+        {% trans "View All" %}
       </a>
     </div>
   </div>
 </section>
-<!-- end doctor section -->
+<!-- End Doctor Section -->
 
- <!-- contact section -->
+
+
+
+
+  <!-- contact section -->
 <section class="contact_section layout_padding">
   <div class="container">
-    <div class="heading_container">
-      <h2>
-        Get In Touch
+    <b>
+      <h2 style="text-align: center;">
+        {% trans "Message" %}
       </h2>
-    </div>
+    </b> <br><br><br>
     <div class="row">
       <div class="col-md-6">
         <div class="form_container contact-form">
@@ -272,26 +458,27 @@
             <div class="form-row">
               <div class="col-lg-6">
                 <div>
-                  <input type="text" name="full_name" placeholder="Your Name" required />
+                  <input type="text" name="full_name" placeholder="{% trans 'Your Name' %}" required />
                 </div>
               </div>
               <div class="col-lg-6">
                 <div>
-                  <input type="text" name="phone" placeholder="Phone Number" required />
+                  <input type="text" name="phone" placeholder="{% trans 'Phone Number' %}" required />
                 </div>
               </div>
             </div>
             <div>
-              <input type="email" name="email" placeholder="Email" required />
+              <input type="email" name="email" placeholder="{% trans 'Email' %}" required />
             </div>
             <div>
-              <input type="text" class="message-box" name="message" placeholder="Message" required />
+              <input type="text" class="message-box" name="message" placeholder="{% trans 'Message' %}" required />
             </div>
             <div class="btn_box">
               <button type="submit">
-                SEND
+                <i class="fa fa-paper-plane" aria-hidden="true"></i> 
               </button>
             </div>
+            
           </form>
         </div>
       </div>
@@ -307,68 +494,105 @@
 </section>
 <!-- end contact section -->
 
-<!-- client section -->
-<section class="client_section layout_padding-bottom">
-  <div class="container">
-    <div class="heading_container heading_center">
-      <h2>
-        Testimonial
-      </h2>
-    </div>
-    <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <!-- Loop over comments from the backend -->
-        {% for comment in comments %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-          <div class="row">
-            <div class="col-md-11 col-lg-10 mx-auto">
-              <div class="box">
-                <div class="img-box">
-                  <img src="{{ comment.image.url }}" alt="{{ comment.full_name }}" />
-                </div>
-                <div class="detail-box">
-                  <div class="name">
-                    <h6>{{ comment.full_name }}</h6>
+
+  <!-- client section -->
+  <section class="client_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+           {% trans 'Testimonial' %}
+        </h2>
+      </div> <br> <br>
+      <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <!-- Loop over comments from the backend -->
+          {% for comment in comments %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="row">
+              <div class="col-md-11 col-lg-10 mx-auto">
+                <div class="box">
+                  <div class="img-box">
+                    <img src="{{ comment.profile_image.url }}" alt="{{ comment.full_name }}" />
                   </div>
-                  <p>
-                    {{ comment.message }}
-                  </p>
-                  <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  <div class="detail-box">
+                    <div class="name">
+                      <h6>{{ comment.commenter_name }}</h6>
+                    </div>
+                    <p>
+                      {{ comment.comment_text }}
+                    </p>
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-      <div class="carousel_btn-container">
-        <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
-          <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
-          <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-          <span class="sr-only">Next</span>
-        </a>
+        <div class="carousel_btn-container">
+          <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<!-- end client section -->
+  </section>
+  <!-- end client section -->
 
-<style>
-  /* Ensure the about text doesn't overflow */
-.about-text {
-  word-wrap: break-word; /* Break words if they exceed the container width */
-  overflow-wrap: break-word; /* Same as word-wrap but more standardized */
-  white-space: normal; /* Ensure the text wraps and doesn't stay in one line */
-  text-overflow: ellipsis; /* Adds "..." when the text overflows */
-  display: block; /* Ensures it behaves as a block-level element */
-  max-width: 100%; /* Ensures the text doesn't exceed the container width */
-}
 
-</style>
 
+  <!-- gallery section -->
+  <section class="gallery_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          {% trans 'Gallery' %}
+        </h2>
+       <br><br>
+      </div>
+      <div class="row">
+        {% for image in gallery %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="gallery-box">
+            <div class="img-box">
+              <img src="{{ image.image_file.url }}" alt="Gallery Image" class="square-img">
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p>No images available in the gallery.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- end gallery section -->
+
+
+
+
+
+  <style>
+    /* Ensure the about text doesn't overflow */
+    .about-text {
+      word-wrap: break-word;
+      /* Break words if they exceed the container width */
+      overflow-wrap: break-word;
+      /* Same as word-wrap but more standardized */
+      white-space: normal;
+      /* Ensure the text wraps and doesn't stay in one line */
+      text-overflow: ellipsis;
+      /* Adds "..." when the text overflows */
+      display: block;
+      /* Ensures it behaves as a block-level element */
+      max-width: 100%;
+      /* Ensures the text doesn't exceed the container width */
+    }
+  </style>
 
 <!-- footer section -->
 <footer class="footer_section">
@@ -376,52 +600,92 @@
     <div class="row">
       <div class="col-md-6 col-lg-4 footer_col">
         <div class="footer_contact">
-          <h4>Reach at..</h4>
+          <h4>{% trans "Reach at.." %}</h4>
           <div class="contact_link_box">
-            <a href="{{ about_us_entries.location }}">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>Location {{ about_us_entries.location }}</span>
-            </a>
-            <a href="tel:{{ about_us_entries.phone }}">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>Call {{ about_us_entries.phone }}</span>
-            </a>
+            <!-- Location Link -->
+            {% if about_us %}
+              <a href="{{ about_us.location }}">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>{% trans "Location" %}: 
+                  {% if request.LANGUAGE_CODE == 'en' %}
+                    {{ about_us.address_en }}
+                  {% elif request.LANGUAGE_CODE == 'ru' %}
+                    {{ about_us.address_ru }}
+                  {% elif request.LANGUAGE_CODE == 'kk' %}
+                    {{ about_us.address_kk }}
+                  {% else %}
+                    {{ about_us.address_en }}
+                  {% endif %}
+                </span>
+              </a>
+            {% else %}
+              <span>{% trans "Location information not available" %}</span>
+            {% endif %}
+
+            <!-- Phone Link -->
+            {% if about_us %}
+              <a href="tel:{{ about_us.contact_number }}">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>{% trans "Call" %}: {{ about_us.contact_number }}</span>
+              </a>
+            {% else %}
+              <span>{% trans "Phone number not available" %}</span>
+            {% endif %}
           </div>
         </div>
 
         <div class="footer_social">
-          <a href="{{ about_us_entries.social_media.url }}">
-            <i class="fa {{ about_us_entries.social_media.icon_class }}" aria-hidden="true"></i>
-          </a>
+          {% if about_us and about_us.social_media %}
+            <a href="{{ about_us.social_media.url }}">
+              <i class="fa {{ about_us.social_media.icon_class }}" aria-hidden="true"></i>
+            </a>
+          {% else %}
+            <span>{% trans "Social media link not available" %}</span>
+          {% endif %}
         </div>
       </div>
 
       <div class="col-md-6 col-lg-3 footer_col">
         <div class="footer_detail">
-          <h4>About</h4>
-          <p class="about-text">{{ about_us_entries.text }}</p> <!-- Display the About Us text -->
+          <h4>{% trans "About" %}</h4>
+          <p class="about-text">
+            {% if about_us %}
+              {% if request.LANGUAGE_CODE == 'en' %}
+                {{ about_us.headline_en }}
+              {% elif request.LANGUAGE_CODE == 'ru' %}
+                {{ about_us.headline_ru }}
+              {% elif request.LANGUAGE_CODE == 'kk' %}
+                {{ about_us.headline_kk }}
+              {% else %}
+                {{ about_us.headline_en }}
+              {% endif %}
+            {% else %}
+              {% trans "No about us information available" %}
+            {% endif %}
+          </p>
         </div>
       </div>
 
       <div class="col-md-6 col-lg-2 mx-auto footer_col">
         <div class="footer_link_box">
-          <h4>Links</h4>
+          <h4>{% trans "Links" %}</h4>
           <div class="footer_links">
-            <a href="/">Home</a>
-            <a href="{% url 'about_us' %}">About</a>
-            <a href="{% url 'department' %}">Departments</a>
-            <a href="{% url 'doctors' %}">Doctors</a>
-            <a href="{% url 'contact' %}">Contact Us</a>
+            <a href="/">{% trans "Home" %}</a>
+            <a href="{% url 'about_us' %}">{% trans "About" %}</a>
+            <a href="{% url 'department' %}">{% trans "Departments" %}</a>
+            <a href="{% url 'doctors' %}">{% trans "Doctors" %}</a>
+            <a href="{% url 'contact' %}">{% trans "Contact Us" %}</a>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Footer Info -->
     <div class="footer-info">
       <p>
-       
-        <br><br>&copy; <span id="displayYear"></span> Distributed By
-        <a href="https://ats-systems.net/">ATS group</a>
+        <br><br>&copy; <span id="displayYear"></span> 
+        {% trans "Distributed By" %} 
+        <a href="https://ats-systems.net/">{% trans "ATS group" %}</a>
       </p>
     </div>
   </div>
@@ -431,65 +695,70 @@
 
 
 
-
-<style>
-  /* Scroll to Top Button */
-#scrollTopBtn {
-  display: none; /* Hidden by default */
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 100; /* Ensure it stays on top */
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text */
-  border: none;
-  outline: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease-in-out;
-}
-
-#scrollTopBtn:hover {
-  background-color: #45a049; /* Slightly darker green on hover */
-  transform: scale(1.1); /* Zoom effect */
-}
-
-</style>
-<!-- Scroll to Top Button -->
-<button id="scrollTopBtn" onclick="scrollToTop()" title="Go to top">
-  <i class="fa fa-chevron-up"></i>
-</button>
-
-<script>
-  // Get the button
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-
-  // Show or hide the button depending on scroll position
-  window.onscroll = function () {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      scrollTopBtn.style.display = "block";
-    } else {
-      scrollTopBtn.style.display = "none";
+  <style>
+    /* Scroll to Top Button */
+    #scrollTopBtn {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 100;
+      /* Ensure it stays on top */
+      background-color: #4caf50;
+      /* Green background */
+      color: white;
+      /* White text */
+      border: none;
+      outline: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 20px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease-in-out;
     }
-  };
 
-  // Scroll to the top of the page when the button is clicked
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-</script>
+    #scrollTopBtn:hover {
+      background-color: #45a049;
+      /* Slightly darker green on hover */
+      transform: scale(1.1);
+      /* Zoom effect */
+    }
+  </style>
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" onclick="scrollToTop()" title="Go to top">
+    <i class="fa fa-chevron-up"></i>
+  </button>
+
+  <script>
+    // Get the button
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    // Show or hide the button depending on scroll position
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollTopBtn.style.display = "block";
+      } else {
+        scrollTopBtn.style.display = "none";
+      }
+    };
+
+    // Scroll to the top of the page when the button is clicked
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
 
 
   <!-- jQery -->
   <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <!-- popper js -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
   <!-- bootstrap js -->
   <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
   <!-- owl slider -->

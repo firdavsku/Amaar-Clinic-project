@@ -12,27 +12,39 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext_lazy as _  
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LANGUAGE_CODE = 'en'  
+LANGUAGES = [
+    ('en', _('English')),
+    ('ru', _('Russian')),
+    ('kk', _('Kazakh')),
+]
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',  # Directory where .po files will be stored
+]
+LANGUAGE_COOKIE_NAME = 'django_language'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-@zu-_22d&0^d)0c82!5!sy!#w9a0chlg8)ai@u%)k)tx3x7xya'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     "alamis.kz",
     "amaarclinic.pythonanywhere.com",
+    "localhost",
+    "127.0.0.1"
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://alamis.kz',
+    "http://localhost",
+    "http://127.0.0.1"
 ]
-
 
 
 # Application definition
@@ -49,6 +61,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,6 +69,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.middleware.SetLanguageMiddleware',
+     
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -112,38 +127,36 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
 USE_TZ = True
-
-
+USE_I18N =True
+USE_L10N = True
 JAZZMIN_SETTINGS = {
     "site_title": "Alamis",
     "site_header": "Alamis",
     "site_brand": "Alamis",
+    "site_logo": "images/alamis-logo.png",  # Path to your logo
     "site_logo_classes": "img-circle",
     "welcome_sign": "Welcome to the Alamis Clinic superadmin panel",
     "copyright": "Acme Alamis Ltd",
-    "search_model": ["app.Doctors", "app.Departments", "app.Message"],
+    "search_model": ["app.Doctor", "app.Department", "app.Message"],
     "user_avatar": None,
     "navbar": "navbar-navy navbar-dark",
-
     "show_sidebar": True,
     "hide_apps": [],
     "hide_models": [],
     "icons": {
-        "app.Social": "fas fa-share-alt",
-        "app.Slug": "fas fa-link",
-        "app.Doctors": "fas fa-user-md",
-        "app.Landing": "fas fa-globe",
-        "app.AboutUs": "fas fa-info-circle",
-        "app.Message": "fas fa-envelope",
-        "app.Comments": "fas fa-comment-dots",
-        "app.Departments": "fas fa-building",
+        # Model-specific icons
+        "app.Social": "fas fa-share-alt",  # Social links
+        "app.Slug": "fas fa-link",  # Slug links
+        "app.Doctor": "fas fa-user-md",  # Doctor profile
+        "app.Landing": "fas fa-home",  # Landing page
+        "app.AboutUs": "fas fa-info-circle",  # About Us section
+        "app.Message": "fas fa-envelope",  # Messages
+        "app.Comment": "fas fa-comment-alt",  # Comments
+        "app.Department": "fas fa-hospital",  # Departments
+        "app.Gallery": "fas fa-images",  # Gallery images
+        "app.Service": "fas fa-hand-holding-medical",  # Services offered
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
@@ -155,9 +168,10 @@ JAZZMIN_SETTINGS = {
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {
         "app.Social": "collapsible",
-        "app.Departments": "vertical_tabs"
+        "app.Department": "vertical_tabs",
     },
 }
+
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
